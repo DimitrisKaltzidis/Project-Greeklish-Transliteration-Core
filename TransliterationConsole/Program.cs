@@ -8,18 +8,27 @@
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            var yolo = "geia sou ti kaneis";
+
+            var phraseToDetectAndTransliterate = "pou eisai re tsifth";
+
+            var phraseToConvertToGreeklish = "Καλησπέρα και καλή βραδιά";
 
             var detector = new GreeklishHelper.LanguageDetector();
 
-            var s = new GreeklishHelper.LanguageTransliterator();
+            var transliterator = new GreeklishHelper.LanguageTransliterator();
 
+            var greekFromGreeklish = transliterator.GuessGreekFromGreeklish(phraseToDetectAndTransliterate);
 
+            var greeklishFromGreek = transliterator.GenerateGreeklishFromGreek(phraseToConvertToGreeklish);
 
-            var res = s.GenerateGreeklishFromGreek("Καλησπέρα και καλή βραδιά");
+            var language = detector.GetLanguage(phraseToDetectAndTransliterate);
 
-            var language = detector.GetLanguage(yolo);
-            Console.WriteLine($"{language.Language} - {language.Confidence}");
+            Console.WriteLine($"Original phrase to detect and transliterate: {phraseToDetectAndTransliterate}");
+            Console.WriteLine($"Original phrase to convert to Greeklish: {phraseToConvertToGreeklish}");
+            Console.WriteLine($"Detected language: {language.Language} - {language.Confidence}");
+            Console.WriteLine($"Greek from Greeklish: {greekFromGreeklish}");
+            Console.WriteLine($"Greeklish from Greek: {greeklishFromGreek}");
+            Console.WriteLine($"Press any key to exit.");
             Console.ReadKey();
         }
     }
